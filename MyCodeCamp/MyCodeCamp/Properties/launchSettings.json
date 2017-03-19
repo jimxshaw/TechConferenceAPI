@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:8080/",
+      "applicationUrl": "http://localhost:8000/",
       "sslPort": 0
     }
   },
@@ -15,14 +15,14 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "MyTechConference": {
+    "MyCodeCamp": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "api/values",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://localhost:60112"
+      "applicationUrl": "http://localhost:60569"
     }
   }
 }

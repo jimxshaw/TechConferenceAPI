@@ -9701,10 +9701,10 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\YX\\projects\\TechConferenceAPI\\MyTechConference\\MyTechConference\\MyTechConference.csproj",
-      "projectName": "MyTechConference",
-      "projectPath": "C:\\YX\\projects\\TechConferenceAPI\\MyTechConference\\MyTechConference\\MyTechConference.csproj",
-      "outputPath": "C:\\YX\\projects\\TechConferenceAPI\\MyTechConference\\MyTechConference\\obj\\",
+      "projectUniqueName": "C:\\YX\\projects\\TechConferenceAPI\\MyCodeCamp\\MyCodeCamp\\MyCodeCamp.csproj",
+      "projectName": "MyCodeCamp",
+      "projectPath": "C:\\YX\\projects\\TechConferenceAPI\\MyCodeCamp\\MyCodeCamp\\MyCodeCamp.csproj",
+      "outputPath": "C:\\YX\\projects\\TechConferenceAPI\\MyCodeCamp\\MyCodeCamp\\obj\\",
       "projectStyle": "PackageReference",
       "originalTargetFrameworks": [
         "netcoreapp1.1"

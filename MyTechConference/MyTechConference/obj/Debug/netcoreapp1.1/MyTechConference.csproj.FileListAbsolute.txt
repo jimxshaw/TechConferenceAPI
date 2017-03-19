@@ -1,9 +1,0 @@
-C:\YX\projects\TechConferenceAPI\MyTechConference\MyTechConference\bin\Debug\netcoreapp1.1\MyTechConference.deps.json
-C:\YX\projects\TechConferenceAPI\MyTechConference\MyTechConference\bin\Debug\netcoreapp1.1\MyTechConference.runtimeconfig.json
-C:\YX\projects\TechConferenceAPI\MyTechConference\MyTechConference\bin\Debug\netcoreapp1.1\MyTechConference.runtimeconfig.dev.json
-C:\YX\projects\TechConferenceAPI\MyTechConference\MyTechConference\bin\Debug\netcoreapp1.1\MyTechConference.dll
-C:\YX\projects\TechConferenceAPI\MyTechConference\MyTechConference\bin\Debug\netcoreapp1.1\MyTechConference.pdb
-C:\YX\projects\TechConferenceAPI\MyTechConference\MyTechConference\obj\Debug\netcoreapp1.1\MyTechConference.csprojResolveAssemblyReference.cache
-C:\YX\projects\TechConferenceAPI\MyTechConference\MyTechConference\obj\Debug\netcoreapp1.1\MyTechConference.AssemblyInfo.cs
-C:\YX\projects\TechConferenceAPI\MyTechConference\MyTechConference\obj\Debug\netcoreapp1.1\MyTechConference.dll
-C:\YX\projects\TechConferenceAPI\MyTechConference\MyTechConference\obj\Debug\netcoreapp1.1\MyTechConference.pdb

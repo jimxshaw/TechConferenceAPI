@@ -4,18 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MyTechConference.Controllers
+namespace MyCodeCamp.Controllers
 {
     [Route("api/[controller]")]
-    public class ConferencesController : Controller
+    public class CampsController : Controller
     {
+
         [HttpGet("")]
         public IActionResult Get()
         {
-
-            return Ok(new { Name = "James", Title = "Engineer" }); 
+            return Ok(new { Name = "James", Occupation = "Engineer" });
         }
-
-
     }
 }

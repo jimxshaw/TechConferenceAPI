@@ -1,4 +1,4 @@
-﻿ using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,7 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace MyTechConference
+namespace MyCodeCamp
 {
     public class Startup
     {
@@ -39,8 +39,7 @@ namespace MyTechConference
             loggerFactory.AddConsole(_config.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            app.UseMvc(config =>
-            {
+            app.UseMvc(config => {
                 //config.MapRoute("MainAPIRoute", "api/{controller}/{action}");
             });
         }
