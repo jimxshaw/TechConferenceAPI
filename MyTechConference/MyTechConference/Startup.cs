@@ -39,7 +39,10 @@ namespace MyTechConference
             loggerFactory.AddConsole(_config.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            app.UseMvc();
+            app.UseMvc(config =>
+            {
+                //config.MapRoute("MainAPIRoute", "api/{controller}/{action}");
+            });
         }
     }
 }
