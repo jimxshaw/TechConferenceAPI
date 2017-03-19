@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using MyCodeCamp.Data;
 
 namespace MyCodeCamp
 {
@@ -28,6 +29,11 @@ namespace MyCodeCamp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton(_config);
+            
+            // Usually the db context and the repository that uses the db context have the same scope.
+            // E.g. If the db context is transient then the repo is transient too. 
+            services.AddDbContext<CampContext>(ServiceLifetime.Scoped);
+            services.AddScoped<ICampRepository, CampRepository>();
 
             // Add framework services.
             services.AddMvc();

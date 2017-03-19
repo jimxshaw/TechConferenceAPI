@@ -7,3 +7,5 @@ C:\YX\projects\TechConferenceAPI\MyCodeCamp\MyCodeCamp\obj\Debug\netcoreapp1.1\M
 C:\YX\projects\TechConferenceAPI\MyCodeCamp\MyCodeCamp\obj\Debug\netcoreapp1.1\MyCodeCamp.AssemblyInfo.cs
 C:\YX\projects\TechConferenceAPI\MyCodeCamp\MyCodeCamp\obj\Debug\netcoreapp1.1\MyCodeCamp.dll
 C:\YX\projects\TechConferenceAPI\MyCodeCamp\MyCodeCamp\obj\Debug\netcoreapp1.1\MyCodeCamp.pdb
+C:\YX\projects\TechConferenceAPI\MyCodeCamp\MyCodeCamp\bin\Debug\netcoreapp1.1\MyCodeCamp.Data.dll
+C:\YX\projects\TechConferenceAPI\MyCodeCamp\MyCodeCamp\bin\Debug\netcoreapp1.1\MyCodeCamp.Data.pdb
