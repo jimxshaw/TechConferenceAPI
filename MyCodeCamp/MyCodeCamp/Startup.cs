@@ -34,13 +34,17 @@ namespace MyCodeCamp
             // E.g. If the db context is transient then the repo is transient too. 
             services.AddDbContext<CampContext>(ServiceLifetime.Scoped);
             services.AddScoped<ICampRepository, CampRepository>();
+            services.AddTransient<CampDbInitializer>();
 
             // Add framework services.
             services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, 
+            IHostingEnvironment env, 
+            ILoggerFactory loggerFactory,
+            CampDbInitializer seeder)
         {
             loggerFactory.AddConsole(_config.GetSection("Logging"));
             loggerFactory.AddDebug();
@@ -48,6 +52,9 @@ namespace MyCodeCamp
             app.UseMvc(config => {
                 //config.MapRoute("MainAPIRoute", "api/{controller}/{action}");
             });
+
+            // If there's no data in our Db then the injected db initializer will seed the db.
+            seeder.Seed().Wait();
         }
     }
 }
