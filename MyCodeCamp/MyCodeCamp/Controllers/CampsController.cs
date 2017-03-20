@@ -34,7 +34,7 @@ namespace MyCodeCamp.Controllers
         {
             try
             {
-                Camp camp = null; 
+                Camp camp = null;
 
                 if (includeSpeakers)
                 {
@@ -116,10 +116,37 @@ namespace MyCodeCamp.Controllers
             }
             catch (Exception ex)
             {
-
+                _logger.LogError($"Threw exception while updating camp: {ex}");
             }
 
             return BadRequest("Could not update camp");
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                var oldCamp = _repo.GetCamp(id);
+
+                if (oldCamp == null)
+                {
+                    return NotFound($"Could not find camp with Id of {id}");
+                }
+
+                _repo.Delete(oldCamp);
+
+                if (await _repo.SaveAllAsync())
+                {
+                    return Ok();
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Threw exception while deleting camp: {ex}");
+            }
+
+            return BadRequest("Could not delete camp");
         }
     }
 }
