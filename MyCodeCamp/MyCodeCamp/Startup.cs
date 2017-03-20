@@ -47,9 +47,9 @@ namespace MyCodeCamp
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app,
-            IHostingEnvironment env,
-            ILoggerFactory loggerFactory,
-            CampDbInitializer seeder)
+                                IHostingEnvironment env,
+                                ILoggerFactory loggerFactory,
+                                CampDbInitializer seeder)
         {
             loggerFactory.AddConsole(_config.GetSection("Logging"));
             loggerFactory.AddDebug();
