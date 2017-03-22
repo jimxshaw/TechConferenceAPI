@@ -15,12 +15,16 @@ namespace MyCodeCamp.Models
         public int Length { get; set; }
         public string Description { get; set; }
 
-        public string Address1 { get; set; }
-        public string Address2 { get; set; }
-        public string Address3 { get; set; }
-        public string CityTown { get; set; }
-        public string StateProvince { get; set; }
-        public string PostalCode { get; set; }
-        public string Country { get; set; }
+        // We're using AutoMapper's profile class to map Camp to CampModel. Camp has
+        // a Location object which contains the below properties. AutoMapper cleverly knows
+        // how to map a Location object to its associated properties when we add that
+        // object's name in front of those properties. 
+        public string LocationAddress1 { get; set; }
+        public string LocationAddress2 { get; set; }
+        public string LocationAddress3 { get; set; }
+        public string LocationCityTown { get; set; }
+        public string LocationStateProvince { get; set; }
+        public string LocationPostalCode { get; set; }
+        public string LocationCountry { get; set; }
     }
 }

@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MyCodeCamp.Data;
 using Newtonsoft.Json;
+using AutoMapper;
 
 namespace MyCodeCamp
 {
@@ -36,6 +37,10 @@ namespace MyCodeCamp
             services.AddDbContext<CampContext>(ServiceLifetime.Scoped);
             services.AddScoped<ICampRepository, CampRepository>();
             services.AddTransient<CampDbInitializer>();
+
+            // In addition to registering AutoMapper as a service here, we must also define an 
+            // AutoMapper profile in our project that shows how one type connects to another type.
+            services.AddAutoMapper();
 
             // Add framework services.
             services.AddMvc()
