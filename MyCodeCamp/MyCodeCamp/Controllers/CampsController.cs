@@ -56,7 +56,9 @@ namespace MyCodeCamp.Controllers
                     return NotFound($"Camp {id} was not found.");
                 }
 
-                return Ok(_mapper.Map<CampModel>(camp));
+                // We're mapping our camp but also map an URL helper that we'll use in our
+                // AutoMapper profile resolver.
+                return Ok(_mapper.Map<CampModel>(camp, options => options.Items["UrlHelper"] = this.Url));
             }
             catch
             {
