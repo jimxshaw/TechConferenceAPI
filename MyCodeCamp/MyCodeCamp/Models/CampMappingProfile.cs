@@ -14,7 +14,9 @@ namespace MyCodeCamp.Models
     {
         public CampMappingProfile()
         {
-            CreateMap<Camp, CampModel>();
+            CreateMap<Camp, CampModel>()
+                .ForMember(c => c.StartDate, options => options.MapFrom(camp => camp.EventDate)) // The StartDate is the EventDate.
+                .ForMember(c => c.EndDate, options => options.ResolveUsing(camp => camp.EventDate.AddDays(camp.Length - 1))); // The EndDate is calculated as however many days are in the event - 1 day.
         }
     }
 }
