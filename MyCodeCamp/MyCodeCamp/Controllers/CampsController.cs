@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace MyCodeCamp.Controllers
 {
     [Route("api/[controller]")]
-    public class CampsController : Controller
+    public class CampsController : BaseController
     {
         private ICampRepository _repo;
         private ILogger<CampsController> _logger;
@@ -58,7 +58,7 @@ namespace MyCodeCamp.Controllers
 
                 // We're mapping our camp but also map an URL helper that we'll use in our
                 // AutoMapper profile resolver.
-                return Ok(_mapper.Map<CampModel>(camp, options => options.Items["UrlHelper"] = this.Url));
+                return Ok(_mapper.Map<CampModel>(camp));
             }
             catch
             {
