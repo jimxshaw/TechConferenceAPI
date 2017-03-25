@@ -73,6 +73,11 @@ namespace MyCodeCamp.Controllers
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
                 _logger.LogInformation("Creating a new code camp");
 
                 // Map CampModel to Camp in order to post to the database
