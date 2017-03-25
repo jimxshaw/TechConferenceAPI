@@ -28,7 +28,7 @@ namespace MyCodeCamp.Models
             // we have to dynamically generate it by using an "UrlHelper" that represents
             // the particular url from the "CampGet" action in the CampsController.
             var url = (IUrlHelper) _httpContextAccessor.HttpContext.Items[BaseController.URLHELPER];
-            return url.Link("CampGet", new { id = source.Id });
+            return url.Link("CampGet", new { moniker = source.Moniker });
         }
     }
 }

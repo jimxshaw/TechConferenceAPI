@@ -16,9 +16,12 @@ namespace MyCodeCamp.Models
         public CampMappingProfile()
         {
             CreateMap<Camp, CampModel>()
-                .ForMember(c => c.StartDate, options => options.MapFrom(camp => camp.EventDate)) // The StartDate is the EventDate.
-                .ForMember(c => c.EndDate, options => options.ResolveUsing(camp => camp.EventDate.AddDays(camp.Length - 1))) // The EndDate is calculated as however many days are in the event - 1 day.
-                .ForMember(c => c.Url, options => options.ResolveUsing<CampUrlResolver>()); // Our own class will resolve urls for us. We'll instantiate the resolver class with dependency injection.
+                // The StartDate is the EventDate.
+                .ForMember(c => c.StartDate, options => options.MapFrom(camp => camp.EventDate))
+                // The EndDate is calculated as however many days are in the event - 1 day.
+                .ForMember(c => c.EndDate, options => options.ResolveUsing(camp => camp.EventDate.AddDays(camp.Length - 1)))
+                // Our own class will resolve urls for us. We'll instantiate the resolver class with dependency injection.
+                .ForMember(c => c.Url, options => options.ResolveUsing<CampUrlResolver>()); 
         }
     }
 }

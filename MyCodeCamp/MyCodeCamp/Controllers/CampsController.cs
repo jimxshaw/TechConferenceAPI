@@ -35,8 +35,8 @@ namespace MyCodeCamp.Controllers
             return Ok(_mapper.Map<IEnumerable<CampModel>>(camps));
         }
 
-        [HttpGet("{id}", Name = "CampGet")]
-        public IActionResult Get(int id, bool includeSpeakers = false)
+        [HttpGet("{moniker}", Name = "CampGet")]
+        public IActionResult Get(string moniker, bool includeSpeakers = false)
         {
             try
             {
@@ -44,16 +44,16 @@ namespace MyCodeCamp.Controllers
 
                 if (includeSpeakers)
                 {
-                    camp = _repo.GetCampWithSpeakers(id);
+                    camp = _repo.GetCampByMonikerWithSpeakers(moniker);
                 }
                 else
                 {
-                    camp = _repo.GetCamp(id);
+                    camp = _repo.GetCampByMoniker(moniker);
                 }
 
                 if (camp == null)
                 {
-                    return NotFound($"Camp {id} was not found.");
+                    return NotFound($"Camp {moniker} was not found.");
                 }
 
                 // We're mapping our camp but also map an URL helper that we'll use in our
