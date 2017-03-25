@@ -69,19 +69,27 @@ namespace MyCodeCamp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Camp model)
+        public async Task<IActionResult> Post([FromBody] CampModel model)
         {
             try
             {
                 _logger.LogInformation("Creating a new code camp");
 
-                _repo.Add(model);
+                // Map CampModel to Camp in order to post to the database
+                // because the db accepts a Camp.
+                var camp = _mapper.Map<Camp>(model);
+
+                _repo.Add(camp);
 
                 if (await _repo.SaveAllAsync())
                 {
-                    var newUri = Url.Link("CampGet", new { id = model.Id });
+                    var newUri = Url.Link("CampGet", new { moniker = camp.Moniker });
 
-                    return Created(newUri, model);
+                    // After pushing to the db, the Camp may get db assign
+                    // fields and when we return this we'd like it to be the CampModel, 
+                    // which represents what's actually changed in the db hence why
+                    // Camp is being mapped back to CampModel.
+                    return Created(newUri, _mapper.Map<CampModel>(camp));
                 }
                 else
                 {

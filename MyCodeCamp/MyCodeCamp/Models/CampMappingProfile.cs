@@ -21,7 +21,22 @@ namespace MyCodeCamp.Models
                 // The EndDate is calculated as however many days are in the event - 1 day.
                 .ForMember(c => c.EndDate, options => options.ResolveUsing(camp => camp.EventDate.AddDays(camp.Length - 1)))
                 // Our own class will resolve urls for us. We'll instantiate the resolver class with dependency injection.
-                .ForMember(c => c.Url, options => options.ResolveUsing<CampUrlResolver>()); 
+                .ForMember(c => c.Url, options => options.ResolveUsing<CampUrlResolver>())
+                // Allow the mapping back of CampModel to Camp.
+                .ReverseMap()
+                // Any methods after ReverseMap deals with theCampModel back to Camp mapping.
+                .ForMember(m => m.EventDate, options => options.MapFrom(model => model.StartDate))
+                .ForMember(m => m.Length, options => options.ResolveUsing(model => (model.EndDate - model.StartDate).Days + 1))
+                .ForMember(m => m.Location, options => options.ResolveUsing(c => new Location()
+                {
+                    Address1 = c.LocationAddress1,
+                    Address2 = c.LocationAddress2,
+                    Address3 = c.LocationAddress3,
+                    CityTown = c.LocationCityTown,
+                    StateProvince = c.LocationStateProvince,
+                    PostalCode = c.LocationPostalCode,
+                    Country = c.LocationCountry
+                }));
         }
     }
 }
