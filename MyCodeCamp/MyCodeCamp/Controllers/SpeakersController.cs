@@ -28,5 +28,23 @@ namespace MyCodeCamp.Controllers
 
             return Ok(speakers);
         }
+
+        [HttpGet("{id}")]
+        public IActionResult Get(string moniker, int id)
+        {
+            var speaker = _repository.GetSpeaker(id);
+
+            if (speaker == null)
+            {
+                return NotFound();
+            }
+
+            if (speaker.Camp.Moniker.ToLower() != moniker.ToLower())
+            {
+                return BadRequest("Speaker not in specified Camp");
+            }
+
+            return Ok(speaker);
+        }
     }
 }
