@@ -85,5 +85,39 @@ namespace MyCodeCamp.Controllers
 
             return BadRequest("Could not add new speaker");
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(string moniker, int id, [FromBody] SpeakerModel model)
+        {
+            try
+            {
+                var speaker = _repository.GetSpeaker(id);
+
+                if (speaker == null)
+                {
+                    return NotFound();
+                }
+
+                if (speaker.Camp.Moniker.ToLower() != moniker.ToLower())
+                {
+                    return BadRequest("Speaker and camp do not match");
+                }
+
+                // Copy the data in the model (source) to the speaker (destination) where appropriate. 
+                _mapper.Map(model, speaker);
+
+                if (await _repository.SaveAllAsync())
+                {
+                    return Ok(_mapper.Map<SpeakerModel>(speaker));
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Exception thrown while updating speaker: {ex}");
+            }
+
+            return BadRequest("Could not update speaker");
+        }
     }
 }
