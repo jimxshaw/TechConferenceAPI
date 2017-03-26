@@ -1,7 +1,9 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MyCodeCamp.Data;
+using MyCodeCamp.Models;
 
 namespace MyCodeCamp.Controllers
 {
@@ -26,10 +28,10 @@ namespace MyCodeCamp.Controllers
         {
             var speakers = _repository.GetSpeakersByMoniker(moniker);
 
-            return Ok(speakers);
+            return Ok(_mapper.Map<IEnumerable<SpeakerModel>>(speakers));
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "SpeakerGet")]
         public IActionResult Get(string moniker, int id)
         {
             var speaker = _repository.GetSpeaker(id);
@@ -44,7 +46,7 @@ namespace MyCodeCamp.Controllers
                 return BadRequest("Speaker not in specified Camp");
             }
 
-            return Ok(speaker);
+            return Ok(_mapper.Map<SpeakerModel>(speaker));
         }
     }
 }
