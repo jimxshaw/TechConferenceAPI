@@ -3,7 +3,7 @@ C:\YX\projects\TechConferenceAPI\MyCodeCamp\MyCodeCamp.Data\bin\Debug\netcoreapp
 C:\YX\projects\TechConferenceAPI\MyCodeCamp\MyCodeCamp.Data\bin\Debug\netcoreapp1.0\MyCodeCamp.Data.runtimeconfig.dev.json
 C:\YX\projects\TechConferenceAPI\MyCodeCamp\MyCodeCamp.Data\bin\Debug\netcoreapp1.0\MyCodeCamp.Data.dll
 C:\YX\projects\TechConferenceAPI\MyCodeCamp\MyCodeCamp.Data\bin\Debug\netcoreapp1.0\MyCodeCamp.Data.pdb
+C:\YX\projects\TechConferenceAPI\MyCodeCamp\MyCodeCamp.Data\obj\Debug\netcoreapp1.0\MyCodeCamp.Data.csprojResolveAssemblyReference.cache
 C:\YX\projects\TechConferenceAPI\MyCodeCamp\MyCodeCamp.Data\obj\Debug\netcoreapp1.0\MyCodeCamp.Data.AssemblyInfo.cs
 C:\YX\projects\TechConferenceAPI\MyCodeCamp\MyCodeCamp.Data\obj\Debug\netcoreapp1.0\MyCodeCamp.Data.dll
 C:\YX\projects\TechConferenceAPI\MyCodeCamp\MyCodeCamp.Data\obj\Debug\netcoreapp1.0\MyCodeCamp.Data.pdb
-C:\YX\projects\TechConferenceAPI\MyCodeCamp\MyCodeCamp.Data\obj\Debug\netcoreapp1.0\MyCodeCamp.Data.csprojResolveAssemblyReference.cache
