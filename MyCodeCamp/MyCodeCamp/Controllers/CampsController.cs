@@ -8,10 +8,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MyCodeCamp.Filters;
 
 namespace MyCodeCamp.Controllers
 {
     [Route("api/[controller]")]
+    [ValidateModel] // Utilizes filters in ValidateModelAttribute.cs. This applies to every action if put on class level.
     public class CampsController : BaseController
     {
         private ICampRepository _repo;
@@ -73,10 +75,11 @@ namespace MyCodeCamp.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
-                }
+                // This if block isn't necessary after adding [ValidateModel] at the controller level.
+                //if (!ModelState.IsValid)
+                //{
+                //    return BadRequest(ModelState);
+                //}
 
                 _logger.LogInformation("Creating a new code camp");
 
@@ -114,10 +117,11 @@ namespace MyCodeCamp.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
-                }
+                // This if block isn't necessary after adding [ValidateModel] at the controller level.
+                //if (!ModelState.IsValid)
+                //{
+                //    return BadRequest(ModelState);
+                //}
 
                 var oldCamp = _repo.GetCampByMonikerWithSpeakers(moniker);
 

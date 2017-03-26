@@ -1,13 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MyCodeCamp.Data;
+using MyCodeCamp.Data.Entities;
+using MyCodeCamp.Filters;
 using MyCodeCamp.Models;
 
 namespace MyCodeCamp.Controllers
 {
     [Route("api/camps/{moniker}/speakers")]
+    [ValidateModel] // Utilizes filters in ValidateModelAttribute.cs. This applies to every action if put on class level.
     public class SpeakersController : BaseController
     {
         private IMapper _mapper;
@@ -47,6 +52,38 @@ namespace MyCodeCamp.Controllers
             }
 
             return Ok(_mapper.Map<SpeakerModel>(speaker));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Post(string moniker, [FromBody] SpeakerModel model)
+        {
+            try
+            {
+                var camp = _repository.GetCampByMoniker(moniker);
+
+                if (camp == null)
+                {
+                    return BadRequest("Could not find camp");
+                }
+
+                var speaker = _mapper.Map<Speaker>(model);
+                speaker.Camp = camp;
+
+                _repository.Add(speaker);
+
+                if (await _repository.SaveAllAsync())
+                {
+                    var url = Url.Link("SpeakerGet", new { moniker = camp.Moniker, id = speaker.Id });
+
+                    return Created(url, _mapper.Map<SpeakerModel>(speaker));
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Exception thrown while adding new speaker: {ex}");
+            }
+
+            return BadRequest("Could not add new speaker");
         }
     }
 }
