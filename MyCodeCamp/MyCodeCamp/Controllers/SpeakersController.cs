@@ -29,17 +29,19 @@ namespace MyCodeCamp.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get(string moniker)
+        public IActionResult Get(string moniker, bool includeTalks = false)
         {
-            var speakers = _repository.GetSpeakersByMoniker(moniker);
+            var speakers = includeTalks ? _repository.GetSpeakersByMonikerWithTalks(moniker) : _repository.GetSpeakersByMoniker(moniker);
 
             return Ok(_mapper.Map<IEnumerable<SpeakerModel>>(speakers));
         }
 
         [HttpGet("{id}", Name = "SpeakerGet")]
-        public IActionResult Get(string moniker, int id)
+        public IActionResult Get(string moniker, int id, bool includeTalks = false)
         {
-            var speaker = _repository.GetSpeaker(id);
+            // Every speaker has a collection of talks but that talks object will
+            // only get returned depending on the value of the includeTalks boolean.
+            var speaker = includeTalks ? _repository.GetSpeakerWithTalks(id) : _repository.GetSpeaker(id);
 
             if (speaker == null)
             {

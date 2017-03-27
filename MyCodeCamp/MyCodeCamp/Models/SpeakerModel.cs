@@ -28,5 +28,7 @@ namespace MyCodeCamp.Models
 
         public string HeadShotUrl { get; set; }
 
+        public ICollection<TalkModel> Talks { get; set; }
+
     }
 }
