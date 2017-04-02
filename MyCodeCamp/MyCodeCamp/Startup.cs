@@ -49,6 +49,25 @@ namespace MyCodeCamp
             // AutoMapper profile in our project that shows how one type connects to another type.
             services.AddAutoMapper();
 
+            // Allows Cors to be used throughout the project.
+            services.AddCors(config =>
+            {
+                // Add specific policies.
+                config.AddPolicy("ESPN", builder =>
+                {
+                    builder.AllowAnyHeader()
+                           .AllowAnyMethod()
+                           .WithOrigins("http://www.espn.com");
+                });
+
+                config.AddPolicy("AnyGET", builder =>
+                {
+                    builder.AllowAnyHeader()
+                           .WithMethods("GET")
+                           .AllowAnyOrigin();
+                });
+            });
+
             // Add framework services.
             services.AddMvc(options =>
                 {
@@ -73,6 +92,14 @@ namespace MyCodeCamp
         {
             loggerFactory.AddConsole(_config.GetSection("Logging"));
             loggerFactory.AddDebug();
+
+            // Configuring Cors to be used globally.
+            //app.UseCors(config =>
+            //{
+            //    config.AllowAnyHeader()
+            //          .AllowAnyMethod()
+            //          .WithOrigins("http://www.google.com");
+            //});
 
             app.UseMvc(config =>
             {

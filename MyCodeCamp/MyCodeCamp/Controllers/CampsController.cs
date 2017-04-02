@@ -8,10 +8,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
 using MyCodeCamp.Filters;
 
 namespace MyCodeCamp.Controllers
 {
+    [EnableCors("AnyGET")]
     [Route("api/[controller]")]
     [ValidateModel] // Utilizes filters in ValidateModelAttribute.cs. This applies to every action if put on class level.
     public class CampsController : BaseController
