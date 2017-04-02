@@ -11,11 +11,13 @@ using MyCodeCamp.Data;
 using Newtonsoft.Json;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MyCodeCamp
 {
     public class Startup
     {
+        private IHostingEnvironment _env;
         private IConfigurationRoot _config { get; }
 
         public Startup(IHostingEnvironment env)
@@ -25,6 +27,8 @@ namespace MyCodeCamp
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
+
+            _env = env;
             _config = builder.Build();
         }
 
@@ -46,11 +50,19 @@ namespace MyCodeCamp
             services.AddAutoMapper();
 
             // Add framework services.
-            services.AddMvc()
-                    .AddJsonOptions(option =>
-                                    {
-                                        option.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-                                    });
+            services.AddMvc(options =>
+                {
+                    //if (!_env.IsProduction())
+                    //{
+                    //    options.SslPort = 44300;
+                    //}
+                    // These global filters will be added to every controller in the project.
+                    //options.Filters.Add(new RequireHttpsAttribute());
+                })
+                .AddJsonOptions(options =>
+                                {
+                                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
