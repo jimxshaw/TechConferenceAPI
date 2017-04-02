@@ -45,6 +45,7 @@ namespace MyCodeCamp
             services.AddDbContext<CampContext>(ServiceLifetime.Scoped);
             services.AddScoped<ICampRepository, CampRepository>();
             services.AddTransient<CampDbInitializer>();
+            services.AddTransient<CampIdentityInitializer>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
@@ -102,10 +103,10 @@ namespace MyCodeCamp
             // Add framework services.
             services.AddMvc(options =>
                 {
-                    if (!_env.IsProduction())
-                    {
-                        options.SslPort = 44300;
-                    }
+                    //if (!_env.IsProduction())
+                    //{
+                    //    options.SslPort = 44300;
+                    //}
                     // These global filters will be added to every controller in the project.
                     //options.Filters.Add(new RequireHttpsAttribute());
                 })
@@ -119,7 +120,8 @@ namespace MyCodeCamp
         public void Configure(IApplicationBuilder app,
                                 IHostingEnvironment env,
                                 ILoggerFactory loggerFactory,
-                                CampDbInitializer seeder)
+                                CampDbInitializer seeder,
+                                CampIdentityInitializer identitySeeder)
         {
             loggerFactory.AddConsole(_config.GetSection("Logging"));
             loggerFactory.AddDebug();
@@ -141,6 +143,7 @@ namespace MyCodeCamp
 
             // If there's no data in our Db then the injected db initializer will seed the db.
             seeder.Seed().Wait();
+            identitySeeder.Seed().Wait();
         }
     }
 }
