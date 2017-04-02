@@ -11,7 +11,9 @@ using MyCodeCamp.Data;
 using Newtonsoft.Json;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
+using MyCodeCamp.Data.Entities;
 
 namespace MyCodeCamp
 {
@@ -48,6 +50,9 @@ namespace MyCodeCamp
             // In addition to registering AutoMapper as a service here, we must also define an 
             // AutoMapper profile in our project that shows how one type connects to another type.
             services.AddAutoMapper();
+
+            services.AddIdentity<CampUser, IdentityRole>()
+                    .AddEntityFrameworkStores<CampContext>();
 
             // Allows Cors to be used throughout the project.
             services.AddCors(config =>
@@ -100,6 +105,8 @@ namespace MyCodeCamp
             //          .AllowAnyMethod()
             //          .WithOrigins("http://www.google.com");
             //});
+
+            app.UseIdentity();
 
             app.UseMvc(config =>
             {
