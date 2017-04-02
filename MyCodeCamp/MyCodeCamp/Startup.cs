@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using MyCodeCamp.Data;
 using Newtonsoft.Json;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
@@ -54,6 +55,31 @@ namespace MyCodeCamp
             services.AddIdentity<CampUser, IdentityRole>()
                     .AddEntityFrameworkStores<CampContext>();
 
+            services.Configure<IdentityOptions>(config =>
+            {
+                // Tell Identity what to do under circumstances/events we specify.
+                config.Cookies.ApplicationCookie.Events = new CookieAuthenticationEvents()
+                {
+                    OnRedirectToLogin = (context) =>
+                    {
+                        if (context.Request.Path.StartsWithSegments("/api") && context.Response.StatusCode == 200)
+                        {
+                            context.Response.StatusCode = 401;
+                        }
+                        return Task.CompletedTask;
+                    },
+                    OnRedirectToAccessDenied = (context) =>
+                    {
+                        if (context.Request.Path.StartsWithSegments("/api") && context.Response.StatusCode == 200)
+                        {
+                            context.Response.StatusCode = 403;
+                        }
+
+                        return Task.CompletedTask;
+                    }
+                };
+            });
+
             // Allows Cors to be used throughout the project.
             services.AddCors(config =>
             {
@@ -76,10 +102,10 @@ namespace MyCodeCamp
             // Add framework services.
             services.AddMvc(options =>
                 {
-                    //if (!_env.IsProduction())
-                    //{
-                    //    options.SslPort = 44300;
-                    //}
+                    if (!_env.IsProduction())
+                    {
+                        options.SslPort = 44300;
+                    }
                     // These global filters will be added to every controller in the project.
                     //options.Filters.Add(new RequireHttpsAttribute());
                 })
