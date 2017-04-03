@@ -61,23 +61,23 @@ namespace MyCodeCamp
                 // Tell Identity what to do under circumstances/events we specify.
                 config.Cookies.ApplicationCookie.Events = new CookieAuthenticationEvents()
                 {
-                    OnRedirectToLogin = (context) =>
-                    {
-                        if (context.Request.Path.StartsWithSegments("/api") && context.Response.StatusCode == 200)
-                        {
-                            context.Response.StatusCode = 401;
-                        }
-                        return Task.CompletedTask;
-                    },
-                    OnRedirectToAccessDenied = (context) =>
-                    {
-                        if (context.Request.Path.StartsWithSegments("/api") && context.Response.StatusCode == 200)
-                        {
-                            context.Response.StatusCode = 403;
-                        }
+                    //OnRedirectToLogin = (context) =>
+                    //{
+                    //    if (context.Request.Path.StartsWithSegments("/api") && context.Response.StatusCode == 200)
+                    //    {
+                    //        context.Response.StatusCode = 401;
+                    //    }
+                    //    return Task.CompletedTask;
+                    //},
+                    //OnRedirectToAccessDenied = (context) =>
+                    //{
+                    //    if (context.Request.Path.StartsWithSegments("/api") && context.Response.StatusCode == 200)
+                    //    {
+                    //        context.Response.StatusCode = 403;
+                    //    }
 
-                        return Task.CompletedTask;
-                    }
+                    //    return Task.CompletedTask;
+                    //}
                 };
             });
 
