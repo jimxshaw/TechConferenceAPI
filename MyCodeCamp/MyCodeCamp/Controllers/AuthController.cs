@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MyCodeCamp.Data;
 using MyCodeCamp.Data.Entities;
 using MyCodeCamp.Filters;
 using MyCodeCamp.Models;
+using System;
+using System.Threading.Tasks;
 
 namespace MyCodeCamp.Controllers
 {
@@ -48,6 +44,22 @@ namespace MyCodeCamp.Controllers
             }
 
             return BadRequest("Failed to login");
+        }
+
+        [ValidateModel]
+        [HttpPost("api/auth/token")]
+        public IActionResult CreateToken([FromBody] CredentialModel model)
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Exception thrown while creating JWT: {ex}");
+            }
+
+            return BadRequest("Failed to generate token");
         }
     }
 }
