@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using MyCodeCamp.Data;
@@ -21,18 +22,21 @@ namespace MyCodeCamp.Controllers
         private ILogger<AuthController> _logger;
         private UserManager<CampUser> _userMgr;
         private IPasswordHasher<CampUser> _hasher;
+        private IConfigurationRoot _config;
 
         public AuthController(CampContext context,
                                 SignInManager<CampUser> signInManager,
                                 UserManager<CampUser> userMgr,
                                 IPasswordHasher<CampUser> hasher,
-                                ILogger<AuthController> logger)
+                                ILogger<AuthController> logger,
+                                IConfigurationRoot config)
         {
             _context = context;
             _signInManager = signInManager;
             _userMgr = userMgr;
             _hasher = hasher;
             _logger = logger;
+            _config = config;
         }
 
         [HttpPost("api/auth/login")]
@@ -73,15 +77,13 @@ namespace MyCodeCamp.Controllers
                             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                         };
 
-                        // In an actual production app, never put the key directly in the code. Place it
-                        // in config settings for example.
-                        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("UNIQUELONGKEYVALUETHATISSECURE"));
+                        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
 
                         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
                         var token = new JwtSecurityToken(
-                                issuer: "http://mycodecamp.org",
-                                audience: "http://mycodecamp.org",
+                                issuer: _config["Token:Issuer"],
+                                audience: _config["Token:Audience"],
                                 claims: claims,
                                 expires: DateTime.UtcNow.AddMinutes(15),
                                 signingCredentials: creds
