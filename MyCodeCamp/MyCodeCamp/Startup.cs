@@ -97,6 +97,12 @@ namespace MyCodeCamp
                 });
             });
 
+            // Authorize certain users.
+            services.AddAuthorization(config =>
+            {
+                config.AddPolicy("SuperUsers", p => p.RequireClaim("SuperUser", "True"));
+            });
+
             // Add framework services.
             services.AddMvc(options =>
                 {

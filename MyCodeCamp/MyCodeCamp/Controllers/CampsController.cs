@@ -1,16 +1,15 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MyCodeCamp.Data;
 using MyCodeCamp.Data.Entities;
+using MyCodeCamp.Filters;
 using MyCodeCamp.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Cors;
-using MyCodeCamp.Filters;
 
 namespace MyCodeCamp.Controllers
 {
@@ -74,6 +73,7 @@ namespace MyCodeCamp.Controllers
             return BadRequest();
         }
 
+        [Authorize(Policy = "SuperUsers")]
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CampModel model)
         {
