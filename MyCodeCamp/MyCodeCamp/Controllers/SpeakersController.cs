@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -10,11 +7,17 @@ using MyCodeCamp.Data;
 using MyCodeCamp.Data.Entities;
 using MyCodeCamp.Filters;
 using MyCodeCamp.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace MyCodeCamp.Controllers
 {
     [Route("api/camps/{moniker}/speakers")]
     [ValidateModel] // Utilizes filters in ValidateModelAttribute.cs. This applies to every action if put on class level.
+    [ApiVersion("1.0")]
+    [ApiVersion("1.1")]
     public class SpeakersController : BaseController
     {
         private IMapper _mapper;
@@ -34,12 +37,23 @@ namespace MyCodeCamp.Controllers
         }
 
         [HttpGet]
+        [MapToApiVersion("1.0")]
         public IActionResult Get(string moniker, bool includeTalks = false)
         {
             var speakers = includeTalks ? _repository.GetSpeakersByMonikerWithTalks(moniker) : _repository.GetSpeakersByMoniker(moniker);
 
             return Ok(_mapper.Map<IEnumerable<SpeakerModel>>(speakers));
         }
+
+        [HttpGet]
+        [MapToApiVersion("1.1")]
+        public IActionResult Getv11(string moniker, bool includeTalks = false)
+        {
+            var speakers = includeTalks ? _repository.GetSpeakersByMonikerWithTalks(moniker) : _repository.GetSpeakersByMoniker(moniker);
+
+            return Ok(new { count = speakers.Count(), results = _mapper.Map<IEnumerable<SpeakerModel>>(speakers) });
+        }
+
 
         [HttpGet("{id}", Name = "SpeakerGet")]
         public IActionResult Get(string moniker, int id, bool includeTalks = false)
