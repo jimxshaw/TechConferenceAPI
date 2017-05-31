@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -84,6 +85,9 @@ namespace MyCodeCamp
                 config.DefaultApiVersion = new ApiVersion(1, 1);
                 config.AssumeDefaultVersionWhenUnspecified = true;
                 config.ReportApiVersions = true;
+                var rdr = new QueryStringOrHeaderApiVersionReader("ver");
+                rdr.HeaderNames.Add("X-MyCodeCamp-Version");
+                config.ApiVersionReader = rdr;
             });
 
             // Allows Cors to be used throughout the project.
