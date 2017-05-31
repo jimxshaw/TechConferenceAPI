@@ -47,7 +47,7 @@ namespace MyCodeCamp.Controllers
 
         [HttpGet]
         [MapToApiVersion("1.1")]
-        public IActionResult Getv11(string moniker, bool includeTalks = false)
+        public virtual IActionResult GetWithCount(string moniker, bool includeTalks = false)
         {
             var speakers = includeTalks ? _repository.GetSpeakersByMonikerWithTalks(moniker) : _repository.GetSpeakersByMoniker(moniker);
 
