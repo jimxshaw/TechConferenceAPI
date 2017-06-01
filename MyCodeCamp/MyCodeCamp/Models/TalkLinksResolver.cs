@@ -30,6 +30,17 @@ namespace MyCodeCamp.Models
                 {
                     Rel = "Self",
                     Href = url.Link("GetTalk", new { moniker = source.Speaker.Camp.Moniker, speakerId = source.Speaker.Id, id = source.Id })
+                },
+                new LinkModel()
+                {
+                    Rel = "Update",
+                    Href = url.Link("UpdateTalk", new { moniker = source.Speaker.Camp.Moniker, speakerId = source.Speaker.Id, id = source.Id }),
+                    Verb = "PUT"
+                },
+                new LinkModel()
+                {
+                    Rel = "Speaker",
+                    Href = url.Link("SpeakerGet", new { moniker = source.Speaker.Camp.Moniker, id = source.Speaker.Id })
                 }
             };
         }
