@@ -55,6 +55,8 @@ namespace MyCodeCamp
             // AutoMapper profile in our project that shows how one type connects to another type.
             services.AddAutoMapper();
 
+            services.AddMemoryCache();
+
             services.AddIdentity<CampUser, IdentityRole>()
                     .AddEntityFrameworkStores<CampContext>();
 
