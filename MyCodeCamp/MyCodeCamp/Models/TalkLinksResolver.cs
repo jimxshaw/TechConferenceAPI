@@ -5,14 +5,33 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using MyCodeCamp.Data.Entities;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using MyCodeCamp.Controllers;
 
 namespace MyCodeCamp.Models
 {
     public class TalkLinksResolver : IValueResolver<Talk, TalkModel, ICollection<LinkModel>>
     {
+        private IHttpContextAccessor _httpContextAccessor;
+
+        public TalkLinksResolver(IHttpContextAccessor httpContextAccessor)
+        {
+            _httpContextAccessor = httpContextAccessor;
+        }
+
         public ICollection<LinkModel> Resolve(Talk source, TalkModel destination, ICollection<LinkModel> destMember, ResolutionContext context)
         {
-            return null;
+            var url = (IUrlHelper)_httpContextAccessor.HttpContext.Items[BaseController.URLHELPER];
+
+            return new List<LinkModel>()
+            {
+                new LinkModel()
+                {
+                    Rel = "Self",
+                    Href = url.Link("GetTalk", new { moniker = source.Speaker.Camp.Moniker, speakerId = source.Speaker.Id, id = source.Id })
+                }
+            };
         }
     }
 }
