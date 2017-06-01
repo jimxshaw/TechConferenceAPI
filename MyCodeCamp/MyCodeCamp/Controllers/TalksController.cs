@@ -62,6 +62,8 @@ namespace MyCodeCamp.Controllers
 
             if (talk.Speaker.Id != speakerId || talk.Speaker.Camp.Moniker.ToLower() != moniker.ToLower()) return BadRequest("Invalid talk for the speaker selected");
 
+            //AddETag(talk);
+
             var etag = Convert.ToBase64String(talk.RowVersion);
             Response.Headers.Add("ETag", etag);
             _cache.Set($"Talk-{talk.Id}-{etag}", talk);
@@ -105,6 +107,15 @@ namespace MyCodeCamp.Controllers
             {
                 var talk = _repo.GetTalk(id);
                 if (talk == null) return NotFound();
+
+                if (Request.Headers.ContainsKey("If-Match"))
+                {
+                    var etag = Request.Headers["If-Match"].First();
+                    if (etag != Convert.ToBase64String(talk.RowVersion))
+                    {
+                        return StatusCode((int)HttpStatusCode.PreconditionFailed);
+                    }
+                }
 
                 _mapper.Map(model, talk);
 
