@@ -48,6 +48,7 @@ namespace MyCodeCamp.Models
 
             CreateMap<Talk, TalkModel>()
                 .ForMember(t => t.Url, options => options.ResolveUsing<TalkUrlResolver>())
+                .ForMember(t => t.Links, options => options.ResolveUsing<TalkLinksResolver>())
                 .ReverseMap();
         }
     }
